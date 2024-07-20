@@ -3,7 +3,7 @@ const ctx = canvas.getContext('2d');
 
 const image1 = new Image();
 
-image1.src = './images/0001.jpg';
+image1.src = './images/0001.JPG';
 
 // from https://www.youtube.com/watch?v=HeT-5RZgEQY
 // run server `python -m http.server`
