@@ -19,15 +19,44 @@ body {
 }
 
 .controls {
-    display: flex;
+
 }
 
-.controls > input {
-    width: 70%
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+input {
+    width: 85%
+    
 }
 
 .controls > label {
     width: 35%;
     color: black;
     font-size: 15px;
+}
+
+.imgControls {
+    display: flex;
+    height: 50px;
+    margin-top: 5px;
+}
+
+.imgUploadBtn {
+    width: 14%;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.space-between {
+    justify-content: space-between;
 }
