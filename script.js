@@ -78,9 +78,9 @@ class AsciiEffect {
                     const avgColorVal = total / 3;
                     const color = selectedColor ? selectedColor : `rgb(${red},${green},${blue})`
                     const symbol = this.#convertToSymbol(avgColorVal);
-                    if (total < 200) { // exclude transparent
+                   // if (total > 200) { // exclude transparent
                         this.#imageCellArray.push(new Cell(x, y, symbol, color));
-                    }
+                  //  }
                 }
             }
         }
@@ -136,5 +136,5 @@ function handleUploadImage() {
     setUpImage(imgSrcElem.value.trim());
 }
 
-setUpImage('./images/radloungebag.jpg');
+setUpImage('./images/0001.JPG');
 
