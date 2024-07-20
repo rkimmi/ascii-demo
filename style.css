@@ -60,3 +60,8 @@ input {
 .space-between {
     justify-content: space-between;
 }
+
+#colorPicker {
+    width: 50px;
+    margin-top: 5px;
+}

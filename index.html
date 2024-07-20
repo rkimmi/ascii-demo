@@ -28,6 +28,14 @@
                 <input type="text" id="imageUpload">
                 <button class="imgUploadBtn" onclick="handleUploadImage()">Upload</button>
             </div>
+
+            <div>
+                <label for="colorPicker" id="colorPickerLabel">
+                    Pick color
+                </label>
+
+                <input type="color" id="colorPicker" name="colorPicker" onchange="selectColor(this)">
+            </div>
         </div>
     </div>
 

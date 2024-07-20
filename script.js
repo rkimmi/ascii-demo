@@ -5,6 +5,14 @@ const ctx = canvas.getContext('2d');
 // run server `python -m http.server`
 let image;
 let effect;
+let selectedColor;
+
+function selectColor() {
+   const colorElem = document.getElementById('colorPicker');
+   selectedColor = colorElem.value;
+   const sliderVal = parseInt(slider.value);
+   effect.draw(sliderVal, true);
+}
 
 const slider = document.getElementById('resolution');
 const sliderLabel = document.getElementById('resolutionLabel')
@@ -54,7 +62,7 @@ class AsciiEffect {
         else if (g > 20) return '~';
         else return '';
     }
-    #scanImage(cellSize) {
+    #scanImage(cellSize, excludeTransparent = false) {
         this.#imageCellArray = [];
         for (let y = 0; y < this.#pixels.height; y += cellSize) {
             for (let x = 0; x < this.#pixels.width; x+= cellSize) {
@@ -68,11 +76,11 @@ class AsciiEffect {
                     const blue = this.#pixels.data[pos + 2];
                     const total = red + green + blue;
                     const avgColorVal = total / 3;
-                    const color = `rgb(${red},${green},${blue})`;
+                    const color = selectedColor ? selectedColor : `rgb(${red},${green},${blue})`
                     const symbol = this.#convertToSymbol(avgColorVal);
-                   //if (total > 200) { // exclude transparent
+                    if (total < 200) { // exclude transparent
                         this.#imageCellArray.push(new Cell(x, y, symbol, color));
-                  // }
+                    }
                 }
             }
         }
@@ -128,5 +136,5 @@ function handleUploadImage() {
     setUpImage(imgSrcElem.value.trim());
 }
 
-setUpImage('./images/0001.JPG');
+setUpImage('./images/radloungebag.jpg');
 
