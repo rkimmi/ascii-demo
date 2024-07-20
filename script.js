@@ -1,20 +1,15 @@
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 
-const image1 = new Image();
-
-image1.src = './images/0001.JPG';
-
 // from https://www.youtube.com/watch?v=HeT-5RZgEQY
 // run server `python -m http.server`
-
+let image;
 let effect;
 
 const slider = document.getElementById('resolution');
 const sliderLabel = document.getElementById('resolutionLabel')
 
 slider.addEventListener('change', handleSlider);
-
 
 class Cell {
     constructor(x, y, symbol, color) {
@@ -39,7 +34,7 @@ class AsciiEffect {
         this.#ctx = ctx;
         this.#width = width;
         this.#height = height
-        this.#ctx.drawImage(image1, 0, 0, this.#width, this.#height)
+        this.#ctx.drawImage(image, 0, 0, this.#width, this.#height)
         this.#pixels = this.#ctx.getImageData(0, 0, this.#width, this.#height)
     }
     
@@ -100,17 +95,38 @@ function handleSlider() {
     const sliderVal = parseInt(slider.value);
     if (sliderVal === 1) {
         sliderLabel.innerHTML = "Original image";
-        ctx.drawImage(image1, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
     } else {
         sliderLabel.innerHTML = "Resolution " + slider.value + " px";
         effect.draw(sliderVal);
     }
 }
 
-image1.onload = () => {
-    canvas.height = image1.height;
-    canvas.width = image1.width;
+function setUpImage(imgSrc) {
+    image = new Image();
+    image.src = imgSrc;
     
-    effect = new AsciiEffect(ctx, image1.width, image1.height);
+    image.onload = () => {
+        loadImage();
+    };
+
+    image.onerror = (error) => {
+        console.error('Error loading image:', error);
+    };
+}
+
+function loadImage() {
+    canvas.height = image.height;
+    canvas.width = image.width;
+
+    effect = new AsciiEffect(ctx, image.width, image.height);
     handleSlider(parseInt(slider.value));
 }
+
+function handleUploadImage() {
+    const imgSrcElem = document.getElementById('imageUpload');
+    setUpImage(imgSrcElem.value.trim());
+}
+
+setUpImage('./images/0001.JPG');
+
