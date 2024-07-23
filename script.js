@@ -47,7 +47,7 @@ class AsciiEffect {
     }
     
     #convertToSymbol(g) {
-        if (g > 250) return '*';
+        if (g > 260) return '>';
         else if (g > 240) return '#';
         else if (g > 220) return '@';
         else if (g > 200) return '&';
@@ -57,10 +57,10 @@ class AsciiEffect {
         else if (g > 120) return '=';
         else if (g > 100) return '(';
         else if (g > 80) return '^';
-        else if (g > 60) return ':';
-        else if (g > 40) return '?';
-        else if (g > 20) return '~';
-        else return '';
+        else if (g > 60) return '*';
+        else if (g > 40) return '+';
+        else if (g > 20) return ':';
+        else return '~';
     }
     #scanImage(cellSize, excludeTransparent = false) {
         this.#imageCellArray = [];
@@ -78,9 +78,7 @@ class AsciiEffect {
                     const avgColorVal = total / 3;
                     const color = selectedColor ? selectedColor : `rgb(${red},${green},${blue})`
                     const symbol = this.#convertToSymbol(avgColorVal);
-                    if (total > 200) { // exclude transparent
-                        this.#imageCellArray.push(new Cell(x, y, symbol, color));
-                    }
+                    this.#imageCellArray.push(new Cell(x, y, symbol, color));
                 }
             }
         }
