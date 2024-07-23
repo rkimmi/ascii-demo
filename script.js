@@ -60,7 +60,7 @@ class AsciiEffect {
         else if (g > 60) return ':';
         else if (g > 40) return '?';
         else if (g > 20) return '~';
-        else return '';
+        else return ']';
     }
     #scanImage(cellSize, excludeTransparent = false) {
         this.#imageCellArray = [];
@@ -78,9 +78,9 @@ class AsciiEffect {
                     const avgColorVal = total / 3;
                     const color = selectedColor ? selectedColor : `rgb(${red},${green},${blue})`
                     const symbol = this.#convertToSymbol(avgColorVal);
-                   // if (total > 200) { // exclude transparent
+                   // if (total < 200) { // exclude transparent
                         this.#imageCellArray.push(new Cell(x, y, symbol, color));
-                  //  }
+                  // }
                 }
             }
         }
