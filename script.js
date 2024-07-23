@@ -136,5 +136,5 @@ function handleUploadImage() {
     setUpImage(imgSrcElem.value.trim());
 }
 
-setUpImage('./images/angel-logo.png');
+setUpImage('./images/0001.JPG');
 
