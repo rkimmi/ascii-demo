@@ -1,45 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>ASCII DEMO</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div class="container">
-    <canvas id="canvas1"></canvas>
-    <div class="controls column">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <canvas id="canvas1"></canvas>
+      <div class="controls column">
         <div class="row w-full space-between">
-            <label for="resolution" id="resolutionLabel"></label>
-    
-            <input type="range" id="resolution" name="resolution"
-            min="1" max="20" value="5">
+          <label for="cellSize" id="cellSizeLabel"></label>
+
+          <input
+            type="range"
+            id="cellSize"
+            name="cellSize"
+            min="1"
+            max="20"
+            value="5"
+          />
         </div>
         <div class="imgControls column space-between">
-            <label for="imageUpload" id="imageUploadLabel">
-                Paste your own image 
-                <a href="https://www.base64-image.de/" target="_blank">
-                    (Base64)
-                </a>
-            </label>
-            <div class="row w-full space-between">
-                <input type="text" id="imageUpload">
-                <button class="imgUploadBtn" onclick="handleUploadImage()">Upload</button>
-            </div>
+          <label for="imageUpload" id="imageUploadLabel">
+            Paste your own image
+            <a href="https://www.base64-image.de/" target="_blank">
+              (Base64)
+            </a>
+          </label>
+          <div class="row w-full space-between">
+            <input type="text" id="imageUpload" />
+            <button class="imgUploadBtn" onclick="handleUploadImage()">
+              Upload
+            </button>
+          </div>
 
-            <div>
-                <label for="colorPicker" id="colorPickerLabel">
-                    Pick color
-                </label>
+          <div>
+            <label for="colorPicker" id="colorPickerLabel"> Pick color </label>
 
-                <input type="color" id="colorPicker" name="colorPicker" onchange="selectColor(this)">
-            </div>
+            <input
+              type="color"
+              id="colorPicker"
+              name="colorPicker"
+              onchange="selectColor(this)"
+            />
+          </div>
         </div>
+      </div>
     </div>
-
-</div>
-<script src="script.js"></script>
-</body>
+    <script src="ascii-core.js"></script>
+    <script src="script.js"></script>
+  </body>
 </html>

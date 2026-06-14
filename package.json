@@ -1,0 +1,24 @@
+{
+  "name": "ascii",
+  "version": "1.0.0",
+  "description": "run server `python -m http.server`",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rkimmi/ascii-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rkimmi/ascii-demo/issues"
+  },
+  "homepage": "https://github.com/rkimmi/ascii-demo#readme",
+  "dependencies": {
+    "canvas": "^3.2.3"
+  }
+}
