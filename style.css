@@ -15,7 +15,44 @@ body {
     transform: translate(-50%, -50%);
 }
 
+#dropZone {
+    position: relative;
+    display: inline-block;
+    border: 2px dashed transparent;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+}
+
+#dropZone.dragover {
+    border-color: #2b8aef;
+}
+
+#dropZone.dragover #dropHint {
+    opacity: 1;
+}
+
 #canvas1 {
+    display: block;
+}
+
+#dropHint {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    text-align: center;
+    padding: 8px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.45);
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+#dropZone:hover #dropHint {
+    opacity: 1;
 }
 
 .controls {

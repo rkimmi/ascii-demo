@@ -30,7 +30,6 @@ ffmpeg -i input.mp4 frame_%04d.png
 Then run the batch conversion script, with specified cell size:
 
 ```bash
-npm install
 node batch.js <inputDir> <outputDir> <cellSize>
 ```
 

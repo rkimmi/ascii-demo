@@ -9,7 +9,11 @@
   </head>
   <body>
     <div class="container">
-      <canvas id="canvas1"></canvas>
+      <div id="dropZone">
+        <canvas id="canvas1"></canvas>
+        <div id="dropHint">Drop an image here, or click to browse</div>
+      </div>
+      <input type="file" id="fileInput" accept="image/*" hidden />
       <div class="controls column">
         <div class="row w-full space-between">
           <label for="cellSize" id="cellSizeLabel"></label>
@@ -24,19 +28,6 @@
           />
         </div>
         <div class="imgControls column space-between">
-          <label for="imageUpload" id="imageUploadLabel">
-            Paste your own image
-            <a href="https://www.base64-image.de/" target="_blank">
-              (Base64)
-            </a>
-          </label>
-          <div class="row w-full space-between">
-            <input type="text" id="imageUpload" />
-            <button class="imgUploadBtn" onclick="handleUploadImage()">
-              Upload
-            </button>
-          </div>
-
           <div>
             <label for="colorPicker" id="colorPickerLabel"> Pick color </label>
 

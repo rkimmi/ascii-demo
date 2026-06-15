@@ -80,17 +80,54 @@ function setUpImage(imgSrc) {
   };
 }
 
-function loadImage() {
-  canvas.height = image.height;
-  canvas.width = image.width;
+const MAX_DIMENSION = 800; // px; large uploads are scaled down to fit
 
-  effect = new AsciiEffect(ctx, image.width, image.height);
+function loadImage() {
+  const scale = Math.min(
+    1,
+    MAX_DIMENSION / image.width,
+    MAX_DIMENSION / image.height,
+  );
+  canvas.width = Math.round(image.width * scale);
+  canvas.height = Math.round(image.height * scale);
+
+  effect = new AsciiEffect(ctx, canvas.width, canvas.height);
   handleSlider(parseInt(slider.value));
 }
 
-function handleUploadImage() {
-  const imgSrcElem = document.getElementById("imageUpload");
-  setUpImage(imgSrcElem.value.trim());
+function handleFile(file) {
+  if (!file || !file.type.startsWith("image/")) {
+    console.error("Not an image file:", file && file.type);
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = () => setUpImage(reader.result);
+  reader.onerror = (error) => console.error("Error reading file:", error);
+  reader.readAsDataURL(file);
 }
+
+// Prevent the browser from navigating to a file dropped anywhere on the page.
+["dragover", "drop"].forEach((evt) =>
+  window.addEventListener(evt, (e) => e.preventDefault()),
+);
+
+const dropZone = document.getElementById("dropZone");
+const fileInput = document.getElementById("fileInput");
+
+dropZone.addEventListener("click", () => fileInput.click());
+fileInput.addEventListener("change", () => handleFile(fileInput.files[0]));
+
+dropZone.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  dropZone.classList.add("dragover");
+});
+dropZone.addEventListener("dragleave", () => {
+  dropZone.classList.remove("dragover");
+});
+dropZone.addEventListener("drop", (e) => {
+  e.preventDefault();
+  dropZone.classList.remove("dragover");
+  handleFile(e.dataTransfer.files[0]);
+});
 
 setUpImage("./images/0001.JPG");
