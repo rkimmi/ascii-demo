@@ -28,6 +28,28 @@ colorPicker.addEventListener("input", () => {
   updateColor();
 });
 
+// Add inputs to manually overwrite characters
+const charInputsContainer = document.getElementById("charInputs");
+const defaultChars = [...AsciiCore.DEFAULT_CHARS.values()];
+
+function applyChars() {
+  const next = [...charInputsContainer.querySelectorAll("input")].map(
+    (el) => el.value,
+  );
+  AsciiCore.setSymbols(next);
+  if (effect) handleSlider();
+}
+
+defaultChars.forEach((char) => {
+  const input = document.createElement("input");
+  input.type = "text";
+  input.maxLength = 1;
+  input.value = char;
+  input.className = "charInput";
+  input.addEventListener("input", applyChars);
+  charInputsContainer.appendChild(input);
+});
+
 const slider = document.getElementById("cellSize");
 const sliderLabel = document.getElementById("cellSizeLabel");
 

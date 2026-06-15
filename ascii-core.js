@@ -1,22 +1,41 @@
-// Shared, DOM-free ASCII algorithm.
+// ASCII algorithm
 // Works as a plain <script> in the browser (attaches to window)
 // and as a CommonJS module in Node (module.exports).
 
+// Pixel brightness to default character map
+const DEFAULT_CHARS = new Map([
+  [240, "#"],
+  [220, "@"],
+  [200, "&"],
+  [180, "%"],
+  [160, "}"],
+  [140, "$"],
+  [120, "="],
+  [100, "("],
+  [80, "^"],
+  [60, "*"],
+  [40, "+"],
+  [20, ":"],
+  [-Infinity, "~"],
+]);
+
+let chars = new Map(DEFAULT_CHARS);
+
+// Enabled overwriting of characters
+function setSymbols(next) {
+  const defaults = [...DEFAULT_CHARS];
+  chars = new Map(
+    defaults.map(([threshold, def], i) => [
+      threshold,
+      next && next[i] ? next[i] : def,
+    ]),
+  );
+}
+
 function convertToSymbol(g) {
-  if (g > 260) return ">";
-  else if (g > 240) return "#";
-  else if (g > 220) return "@";
-  else if (g > 200) return "&";
-  else if (g > 180) return "%";
-  else if (g > 160) return "}";
-  else if (g > 140) return "$";
-  else if (g > 120) return "=";
-  else if (g > 100) return "(";
-  else if (g > 80) return "^";
-  else if (g > 60) return "*";
-  else if (g > 40) return "+";
-  else if (g > 20) return ":";
-  else return "~";
+  for (const [threshold, symbol] of chars) {
+    if (g > threshold) return symbol;
+  }
 }
 
 // imageData: an ImageData-like { data, width, height }
@@ -47,7 +66,7 @@ function scanImage(imageData, cellSize, color) {
   return cells;
 }
 
-const AsciiCore = { convertToSymbol, scanImage };
+const AsciiCore = { convertToSymbol, scanImage, setSymbols, DEFAULT_CHARS };
 
 if (typeof module !== "undefined" && module.exports) {
   module.exports = AsciiCore; // Node

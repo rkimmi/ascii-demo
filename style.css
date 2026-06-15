@@ -55,8 +55,28 @@ body {
     opacity: 1;
 }
 
-.controls {
+.charControls {
+    margin-top: 10px;
+    gap: 5px;
+}
 
+#charControlsLabel {
+    color: black;
+    font-size: 15px;
+}
+
+#charInputs {
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.charInput {
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    font-family: monospace;
+    font-size: 14px;
+    padding: 0;
 }
 
 .column {
