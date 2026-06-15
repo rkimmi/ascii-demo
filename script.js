@@ -40,14 +40,28 @@ function applyChars() {
   if (effect) handleSlider();
 }
 
-defaultChars.forEach((char) => {
+defaultChars.forEach((char, i) => {
   const input = document.createElement("input");
   input.type = "text";
   input.maxLength = 1;
   input.value = char;
   input.className = "charInput";
+  input.name = `char${i}`;
+  input.setAttribute("aria-label", `Character ${i + 1} (light to dark)`);
   input.addEventListener("input", applyChars);
   charInputsContainer.appendChild(input);
+});
+
+// Download button. Mostly to support Safari, which does not have a right-click save image option for canvas
+document.getElementById("saveBtn").addEventListener("click", () => {
+  canvas.toBlob((blob) => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "ascii.png";
+    a.click();
+    URL.revokeObjectURL(url);
+  });
 });
 
 const slider = document.getElementById("cellSize");

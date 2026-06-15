@@ -1,183 +1,199 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: white;
+  background-color: white;
 }
 
 .container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #dropZone {
-    position: relative;
-    display: inline-block;
-    border: 2px dashed transparent;
-    cursor: pointer;
-    transition: border-color 0.15s ease;
+  position: relative;
+  display: inline-block;
+  border: 2px dashed transparent;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
 }
 
 #dropZone.dragover {
-    border-color: #2b8aef;
+  border-color: #2b8aef;
 }
 
 #dropZone.dragover #dropHint {
-    opacity: 1;
+  opacity: 1;
 }
 
 #canvas1 {
-    display: block;
+  display: block;
 }
 
 #dropHint {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    text-align: center;
-    padding: 8px;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.45);
-    font-size: 16px;
-    opacity: 0;
-    transition: opacity 0.15s ease;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  text-align: center;
+  padding: 8px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.45);
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
 }
 
 #dropZone:hover #dropHint {
-    opacity: 1;
+  opacity: 1;
 }
 
 .charControls {
-    margin-top: 10px;
-    gap: 5px;
+  margin-top: 10px;
+  gap: 5px;
 }
 
 #charControlsLabel {
-    color: black;
-    font-size: 15px;
+  color: black;
+  font-size: 15px;
 }
 
 #charInputs {
-    flex-wrap: wrap;
-    gap: 4px;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
 .charInput {
-    width: 28px;
-    height: 28px;
-    text-align: center;
-    font-family: monospace;
-    font-size: 14px;
-    padding: 0;
+  width: 28px;
+  height: 28px;
+  text-align: center;
+  font-family: monospace;
+  font-size: 14px;
+  padding: 0;
 }
 
 .column {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .row {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 input {
-    width: 85%
-    
+  width: 85%;
 }
 
 .controls > label {
-    width: 35%;
-    color: black;
-    font-size: 15px;
+  width: 35%;
+  color: black;
+  font-size: 15px;
 }
 
 .imgControls {
-    display: flex;
-    height: 50px;
-    margin-top: 5px;
+  display: flex;
+  height: 50px;
+  margin-top: 5px;
 }
 
 .imgUploadBtn {
-    width: 14%;
+  width: 14%;
 }
 
 .w-full {
-    width: 100%;
+  width: 100%;
 }
 
 .space-between {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 .colorControls {
-    align-items: center;
-    gap: 10px;
-    margin-top: 5px;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
 }
 
 .switchLabel {
-    color: #999;
-    font-size: 15px;
-    transition: color 0.15s ease;
+  color: #999;
+  font-size: 15px;
+  transition: color 0.15s ease;
 }
 
 .switchLabel.active {
-    color: black;
+  color: black;
 }
 
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 40px;
-    height: 22px;
-    flex: none;
-    cursor: pointer;
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  flex: none;
+  cursor: pointer;
 }
 
 .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
 }
 
 .switch .slider {
-    position: absolute;
-    inset: 0;
-    background-color: #ccc;
-    border-radius: 22px;
-    transition: background-color 0.15s ease;
+  position: absolute;
+  inset: 0;
+  background-color: #ccc;
+  border-radius: 22px;
+  transition: background-color 0.15s ease;
 }
 
 .switch .slider::before {
-    content: "";
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    left: 3px;
-    top: 3px;
-    background-color: white;
-    border-radius: 50%;
-    transition: transform 0.15s ease;
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 3px;
+  top: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.15s ease;
 }
 
 .switch input:checked + .slider {
-    background-color: #2b8aef;
+  background-color: #2b8aef;
 }
 
 .switch input:checked + .slider::before {
-    transform: translateX(18px);
+  transform: translateX(18px);
 }
 
 #colorPicker {
-    width: 50px;
+  width: 50px;
+}
+
+#saveBtn {
+  cursor: pointer;
+  min-height: 30px;
+  margin-top: 5px;
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+}
+
+#saveBtn:hover {
+  background-color: rgb(210, 10, 150);
+  color: white;
+  border-color: white;
 }
