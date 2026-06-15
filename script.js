@@ -7,12 +7,26 @@ let image;
 let effect;
 let selectedColor;
 
-function selectColor() {
-  const colorElem = document.getElementById("colorPicker");
-  selectedColor = colorElem.value;
-  const sliderVal = parseInt(slider.value);
-  effect.draw(sliderVal, true);
+const colorToggle = document.getElementById("colorToggle");
+const labelOriginal = document.getElementById("labelOriginal");
+const labelSolid = document.getElementById("labelSolid");
+const colorPicker = document.getElementById("colorPicker");
+
+function updateColor() {
+  const solid = colorToggle.checked;
+  labelSolid.classList.toggle("active", solid);
+  labelOriginal.classList.toggle("active", !solid);
+  selectedColor = solid ? colorPicker.value : null;
+  if (effect) handleSlider();
 }
+
+updateColor(); // sets initial label state
+
+colorToggle.addEventListener("change", updateColor);
+colorPicker.addEventListener("input", () => {
+  colorToggle.checked = true; // choosing a color switches to solid mode
+  updateColor();
+});
 
 const slider = document.getElementById("cellSize");
 const sliderLabel = document.getElementById("cellSizeLabel");
@@ -61,7 +75,7 @@ function handleSlider() {
     sliderLabel.innerHTML = "Original image";
     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
   } else {
-    sliderLabel.innerHTML = "cellSize " + slider.value + " px";
+    sliderLabel.innerHTML = "Cell Size " + slider.value + " px";
     effect.draw(sliderVal);
   }
 }

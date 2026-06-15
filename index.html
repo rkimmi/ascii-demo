@@ -17,7 +17,6 @@
       <div class="controls column">
         <div class="row w-full space-between">
           <label for="cellSize" id="cellSizeLabel"></label>
-
           <input
             type="range"
             id="cellSize"
@@ -28,15 +27,15 @@
           />
         </div>
         <div class="imgControls column space-between">
-          <div>
-            <label for="colorPicker" id="colorPickerLabel"> Pick color </label>
+          <div class="row colorControls">
+            <span class="switchLabel" id="labelOriginal">Original color</span>
+            <label class="switch" for="colorToggle">
+              <input type="checkbox" id="colorToggle" />
+              <span class="slider"></span>
+            </label>
+            <span class="switchLabel" id="labelSolid">Solid color</span>
 
-            <input
-              type="color"
-              id="colorPicker"
-              name="colorPicker"
-              onchange="selectColor(this)"
-            />
+            <input type="color" id="colorPicker" name="colorPicker" />
           </div>
         </div>
       </div>
