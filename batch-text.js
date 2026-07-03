@@ -1,20 +1,17 @@
-// Batch ASCII renderer.
-// Usage: node batch.js <inputDir> <outputDir> <cellSize>
-// Reads .png frames from inputDir, writes ASCII PNGs to outputDir.
+// Batch ASCII text renderer.
+// Usage: node batch-text.js <inputDir> <outputDir> <cellSize>
+// Reads .png frames from inputDir, writes ASCII .txt frames to outputDir.
 
 const fs = require("fs");
 const path = require("path");
 const { createCanvas, loadImage } = require("canvas");
 const { scanImage } = require("./ascii-core");
 
-const BG_COLOR = "black";
-const FONT = "10px sans-serif"; // matches the browser canvas default
-
 async function main() {
   const [, , inputDir, outputDir, cellSizeArg] = process.argv;
 
   if (!inputDir || !outputDir || !cellSizeArg) {
-    console.error("Usage: node batch.js <inputDir> <outputDir> <cellSize>");
+    console.error("Usage: node batch-text.js <inputDir> <outputDir> <cellSize>");
     process.exit(1);
   }
 
@@ -49,22 +46,20 @@ async function main() {
     ctx.drawImage(image, 0, 0, image.width, image.height);
     const imageData = ctx.getImageData(0, 0, image.width, image.height);
 
-    // Draw the ASCII over a solid background.
-    ctx.fillStyle = BG_COLOR;
-    ctx.fillRect(0, 0, image.width, image.height);
-    ctx.font = FONT;
-
-    const cells = scanImage(imageData, cellSize); // original pixel colors
+    // Lay the symbols into a character grid instead of a canvas.
+    const cells = scanImage(imageData, cellSize);
+    const cols = Math.ceil(image.width / cellSize);
+    const rows = Math.ceil(image.height / cellSize);
+    const grid = Array.from({ length: rows }, () => new Array(cols).fill(" "));
     for (const cell of cells) {
-      ctx.fillStyle = cell.color;
-      ctx.fillText(cell.symbol, cell.x, cell.y);
+      grid[cell.y / cellSize][cell.x / cellSize] = cell.symbol;
     }
 
-    const outName = path.basename(file, path.extname(file)) + ".png";
-    fs.writeFileSync(
-      path.join(outputDir, outName),
-      canvas.toBuffer("image/png"),
-    );
+    // Trim trailing whitespace per row to keep files small.
+    const text = grid.map((r) => r.join("").replace(/\s+$/, "")).join("\n");
+
+    const outName = path.basename(file, path.extname(file)) + ".txt";
+    fs.writeFileSync(path.join(outputDir, outName), text);
     console.log(`  [${i + 1}/${frames.length}] ${file} -> ${outName}`);
   }
 
