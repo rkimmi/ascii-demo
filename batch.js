@@ -7,7 +7,7 @@ const path = require("path");
 const { createCanvas, loadImage } = require("canvas");
 const { scanImage } = require("./ascii-core");
 
-const BG_COLOR = "black";
+const BG_COLOR = "none"; // "none" for transparent, use "black" for black, etc
 const FONT = "10px sans-serif"; // matches the browser canvas default
 
 async function main() {
@@ -49,12 +49,18 @@ async function main() {
     ctx.drawImage(image, 0, 0, image.width, image.height);
     const imageData = ctx.getImageData(0, 0, image.width, image.height);
 
-    // Draw the ASCII over a solid background.
+	const cells = scanImage(imageData, cellSize); // original pixel colors
+
+    if (BG_COLOR !== "none") {
+	  // Draw the ASCII over a solid background.
     ctx.fillStyle = BG_COLOR;
-    ctx.fillRect(0, 0, image.width, image.height);
+   	ctx.fillRect(0, 0, image.width, image.height);
+	} else {
+		// Clear canvas for transparent bg
+		ctx.clearRect(0, 0, image.width, image.height);
+	}
     ctx.font = FONT;
 
-    const cells = scanImage(imageData, cellSize); // original pixel colors
     for (const cell of cells) {
       ctx.fillStyle = cell.color;
       ctx.fillText(cell.symbol, cell.x, cell.y);

@@ -63,6 +63,7 @@ function scanImage(imageData, cellSize, color) {
       }
     }
   }
+
   return cells;
 }
 

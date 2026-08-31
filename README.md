@@ -1,34 +1,34 @@
-# ascii-demo
+ ascii-demo
 
 Image to ascii-image conversion, replaces pixels with text characters defined in [ascii-core.js](./ascii-core.js)
 
-# Credits
+ Credits
 
 This project lightly extends [this](https://www.youtube.com/watch?v=HeT-5RZgEQY) ascii image tutorial by [@FranksLaboratory](https://www.youtube.com/@Frankslaboratory)
 
-## Web
+# Web
 
 Run a server and open `index.html`:
 
 ```bash
-python -m http.server
+python -m http.server && open index.html
 ```
 
 Paste an image URL into the input to convert it to ASCII.
 Adjust cell size and color controls, then save-as.
 
-## Batch .txt file generation
+# CLI
 
-### Convert .gif file to frames
+Convert a batch set of frames to ASCII gif, txt or video files without the web UI.
+
+## .txt frame generation
+
+Use to animate/play frames in the terminal, with `play-text-cli.js`
+
+### Convert frames to ascii text
 
 ```bash
-ffmpeg -i <path-to-input-gif> -vf "scale=480:240" frames-out/frame-%04d.png
-```
-
-### Convert frames to ascii
-
-```bash
- node batch-text.js <path-to-input-frames> <path-to-txt-frames> <cellsize>
+node batch-text.js <path-to-input-frames> <path-to-txt-frames> <cellsize>
 ```
 
 ### Play generated ascii frames in the terminal
@@ -37,9 +37,33 @@ ffmpeg -i <path-to-input-gif> -vf "scale=480:240" frames-out/frame-%04d.png
 node play-text-cli.js <path-to-input-txt-frames> --fps 24 --loop 
 ```
 
-## Batch image generation to support video
 
-Convert a batch set of frames to ASCII PNGs without the web UI.
+## Ascii gif generation
+
+
+### Convert .gif file to frames
+
+```bash
+ffmpeg -i <path-to-input-gif> -vf "scale=480:240" frames-out/frame-%04d.png
+```
+
+### Convert to ASCII
+
+```bash
+ node batch.js <path-to-input-frames> frames-out/frame-%04d.png <cellsize>
+```
+
+### Generate .gif with ASCII frames
+
+Note the -vf arg, this preserves transparency from original frames
+
+```bash
+ffmpeg -framerate 24 -i frames-out/frame-%04d.png \ 
+-vf "split[s0][s1];[s0]palettegen=reserve_transparent=1[p];[s1][p]paletteuse" \
+output.gif
+```
+
+## Ascii video generationBatch image generation
 
 Prerequsite: Convert a video file to frames. This is easily done with ffmpeg:
 
