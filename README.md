@@ -63,7 +63,7 @@ ffmpeg -framerate 24 -i frames-out/frame-%04d.png \
 output.gif
 ```
 
-## Ascii video generationBatch image generation
+## Ascii video generation
 
 Prerequsite: Convert a video file to frames. This is easily done with ffmpeg:
 
@@ -85,10 +85,16 @@ node batch.js frames output 7
 
 ### Conversion of frames back into video:
 
-Note: The following command includes settings that I found to produce good results so far. These should be adjusted as needed. These are outlined below. 
+Note: For colour settings see additional -vf arg values below 
 
 ```bash
-ffmpeg -framerate 24 -i frame_%04d.png -vf "eq=saturation=1.4,scale=in_range=full:out_range=full:out_color_matrix=bt709,format=yuv444p" -c:v libx264 -crf 14 -preset slow -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range pc -movflags +faststart <output_file_path>
+ffmpeg \
+-framerate 24 \
+-start_number 1 \
+-i ~/Desktop/beach-ascii/frame_%04d.png  \
+-c:v h264_videotoolbox \
+-pix_fmt yuv420p \
+-movflags +faststart \
 ```
 
 Make sure to replace <output_file_path> with a desired output file path, e.g; './output.mp4'
